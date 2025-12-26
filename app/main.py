@@ -1,12 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 
 app = FastAPI()
 
 @app.get("/")
-def read_root():
-    return { "msg": "Hello! This is an update to my assignment.", "v": "0.1" }
+def root():
+    return {"message": "Hello from my Render FastAPI app"}
 
-
-@app.get("/items/{id}")
-def read_item(item_id: int, q: str = None):
-    return {"id": id, "q": q}
+@app.get("/square")
+def square(n: int = Query(..., ge=0, le=100000)):
+    return {"n": n, "square": n * n}
